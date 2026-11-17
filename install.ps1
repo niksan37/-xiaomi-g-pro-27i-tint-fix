@@ -33,6 +33,12 @@ New-Item -ItemType Directory -Force $dst | Out-Null
 Copy-Item $src -Destination $dst -Force
 $script = Join-Path $dst 'tintfix.pyw'
 Set-ItemProperty -Path $runKey -Name 'XiaomiTintFix' -Value ('"{0}" "{1}" --boot' -f $pyw, $script)
+# Mark the entry as enabled, as Task Manager does. Without this value, recent Windows 11 builds
+# skipped the entry at logon (observed on 25H2: only entries marked 0x02 here were started).
+$approved = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run'
+if (-not (Test-Path $approved)) { New-Item -Path $approved -Force | Out-Null }
+New-ItemProperty -Path $approved -Name 'XiaomiTintFix' -PropertyType Binary -Force `
+    -Value ([byte[]](0x02, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) | Out-Null
 Start-Process -FilePath $pyw -ArgumentList ('"{0}"' -f $script) -WorkingDirectory $dst
 
 Write-Host "Installed to $dst"
