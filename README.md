@@ -29,7 +29,7 @@ The watcher waits for display events (mode change, wake-up, monitor reconnect) a
 
 1. Download this repository (Code → Download ZIP) and unpack it, or clone it.
 2. Set the monitor to the gamut you want (sRGB) and Picture Mode "Standard".
-3. Run in the unpacked folder:
+3. Open a normal PowerShell window (Start menu → "PowerShell") in the unpacked folder and run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File install.ps1

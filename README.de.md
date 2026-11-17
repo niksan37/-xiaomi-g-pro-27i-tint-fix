@@ -29,7 +29,7 @@ Der Wächter wartet auf Anzeige-Ereignisse (Moduswechsel, Aufwachen, Wiederverbi
 
 1. Dieses Repository herunterladen (Code → Download ZIP) und entpacken, oder klonen.
 2. Am Monitor den gewünschten Farbraum (sRGB) und Picture Mode „Standard" einstellen.
-3. Im entpackten Ordner ausführen:
+3. Ein normales PowerShell-Fenster (Startmenü → „PowerShell") im entpackten Ordner öffnen und ausführen:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File install.ps1

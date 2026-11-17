@@ -61,7 +61,10 @@ The monitor is not found under the PnP id `XMI27B2`. Run `python tools\ddc.py li
 Another program owns that hotkey; the log then contains "hotkey Ctrl+Alt+F10 is taken". Use `python tintfix.pyw --once` from the install folder instead, or change the key in `watch()` (the `RegisterHotKey` call).
 
 **The watcher is not running after a restart.**
-Check the log: after a logon there should be a `watcher started` line followed by `event: logon`. If it is missing, open Task Manager → Startup apps and make sure `XiaomiTintFix` (shown as `pythonw.exe`) is enabled. Versions of `install.ps1` before this fix did not mark the entry as enabled, and Windows 11 25H2 skipped it at logon; running the current `install.ps1` again fixes that.
+Check the log: after a logon there should be a `watcher started` line followed by `event: logon`. If the install folder `%LOCALAPPDATA%\XiaomiTintFix` does not exist when you open it in Explorer, see the next point.
+
+**Do not run `install.ps1` from a terminal inside a packaged app.**
+Some Windows apps are MSIX packages (for example the Claude desktop app). Commands they run get their writes to `%LOCALAPPDATA%`, `%APPDATA%` and `HKCU` redirected into the app's private storage (`%LOCALAPPDATA%\Packages\<app>\LocalCache`). Inside that app everything looks installed and the watcher even runs, but at logon Windows finds neither the autostart entry nor the script. Run `uninstall.ps1` from the same place, then `install.ps1` from a normal PowerShell window (Start menu → "PowerShell").
 
 **The watcher no longer starts after a Python update.**
 The autostart entry stores the full path to `pythonw.exe`. Run `install.ps1` again.

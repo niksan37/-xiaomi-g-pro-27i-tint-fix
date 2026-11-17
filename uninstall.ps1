@@ -9,8 +9,6 @@ Get-CimInstance Win32_Process -Filter "Name='pythonw.exe'" |
 Start-Sleep -Seconds 1
 
 Remove-ItemProperty -Path $runKey -Name 'XiaomiTintFix' -ErrorAction SilentlyContinue
-Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run' `
-    -Name 'XiaomiTintFix' -ErrorAction SilentlyContinue
 if (Test-Path $dst) { Remove-Item -Recurse -Force -Confirm:$false $dst }
 
 Write-Host 'Removed. The monitor itself was not changed.'
